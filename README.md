@@ -150,7 +150,8 @@ if __name__ == "__main__":
 
 ## 5. 동영상 녹화하기
 --------------------------------------------------
-- ssh 로 JetBot에 접속해 녹화 파일명, 녹화 시간을 지정하면 해당 시간 동안 동영상 파일을 만든다.
+- JetBot에 ssh 로 접속해 실행한다.<br>
+- 녹화 파일명, 녹화 시간을 지정하면 해당 시간 동안 동영상 파일을 만든다.<br>
 
 $ python3 RecordVideo.py
 > 녹화 파일명 : file.avi <br>
@@ -158,7 +159,7 @@ $ python3 RecordVideo.py
 
 <img src='README/05_01.jpg'>
 
-- 만약 모니터에 연결한 경우 옵션 1을 주면 모니터 화면에서 녹화 화면을 볼 수 있다.
+- 옵션 1을 주면 모니터 화면에서 녹화 화면을 볼 수 있다.
 
 $ python3 RecordVideo.py 1
 > 녹화 파일명 > file.avi <br>
@@ -170,10 +171,13 @@ $ python3 RecordVideo.py 1
 
 ## 6. 이미지 파일로 저장하기
 --------------------------------------------------
-- ssh 로 JetBot에 접속해 파일명, 시간을 지정하면 해당 시간 동안 이미지 파일을 0.1ms 주기로 만든다.
+- JetBot에 ssh 로 접속해 실행한다.<br>
+- 파일명, 시간을 지정하면 해당 시간 동안 이미지 파일을 0.1ms 주기로 만든다.<br>
 
 $ python CameraToImage.py
 
 <img src='README/06_01.jpg'>
 
 <img src='README/06_02.jpg'>
+
+<img src='README/06_03.jpg'>
