@@ -8,6 +8,7 @@ import time
 
 # 매개변수 검사하기
 g_bDisplay = 0
+
 if len(sys.argv) > 1:
     g_bDisplay = int(sys.argv[1])
 
