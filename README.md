@@ -2,7 +2,6 @@
 --------------------------------------------------
 - blackcode <br>
 https://github.com/blackcoke/Proj_road_detection- <br>
-준희님께서 카메라에서 이미지 얻는 문제와 속도 문제 해결함  <br>
 
 - CSI-Camera <br>
 https://github.com/JetsonHacksNano/CSI-Camera <br>
