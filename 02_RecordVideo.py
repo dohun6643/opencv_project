@@ -24,7 +24,7 @@ def InputKey():
     # else:
     #     str = input("입력> ")
     #     keydata = str.strip()
-    #     result = ord(keydata[0])
+    #     keydata = ord(keydata[0])
 
     return keydata
 
@@ -83,6 +83,8 @@ def RecordVideo(strfile, second):
         
         # 키 입력받기
         result = InputKey()
+        if result == ord('q'):
+            break
 
         # 대기시간
         time.sleep(0.1)
