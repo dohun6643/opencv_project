@@ -55,3 +55,28 @@ camera = Camera.instance(width=300, height=300)
 
 # camera를 image view창에 뿌려주기
 camera_link = traitlets.dlink((camera, 'value'), (image, 'value'), transform=bgr8_to_jpeg)
+
+# jetbot zigzag
+from jetbot import Robot
+import math
+import time
+
+robot = Robot()
+
+def Runcar(radius, offset, angle, factor, sleeptime):
+    for i in range(0, angle):
+        left_speed = radius * math.sin(i*3.14/180) * factor + offset
+        right_speed = (radius -2) * math.sin(i*3.14/180) * factor + offset
+        robot.set_motors(left_speed, right_speed)
+        time.sleep(sleeptime)
+        
+    for i in range(0, angle):
+        left_speed = (radius - 2) * math.sin(i*3.14/180) * factor + offset
+        right_speed = radius * math.sin(i*3.14/180) * factor + offset
+        robot.set_motors(left_speed, right_speed)
+        time.sleep(sleeptime)
+
+Runcar(4, 0.1, 10, 0.2, 0.2)
+Runcar(4, 0.1, 10, 0.2, 0.2)
+time.sleep(3)
+robot.stop()
