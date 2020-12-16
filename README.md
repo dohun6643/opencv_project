@@ -1,7 +1,13 @@
 ## 1. 참고 자료
 --------------------------------------------------
-- CSI-Camera
-https://github.com/JetsonHacksNano/CSI-Camera
+- blackcode <br>
+https://github.com/blackcoke/Proj_road_detection- <br>
+준희님께서 카메라에서 이미지 얻는 문제와 속도 문제 해결함  <br>
+
+- CSI-Camera <br>
+https://github.com/JetsonHacksNano/CSI-Camera <br>
+GStreamer를 이용해서 카메라 이미지 획득하는 방법 설명함 <br>
+
 <p> &nbsp; </p>
 
 ## 2. 프로그램 설치하기
@@ -19,6 +25,8 @@ $ sudo apt install libcanberra-gtk-module libcanberra-gtk3-module <br>
 $ sudo v4l2-ctl --list-devices
 > vi-output, imx219 7-0010 (platform:54080000.vi:0):
 >        /dev/video0
+
+<img src='README/03.jpg'> <br>
 
 $ v4l2-ctl --device=/dev/video0 --all
 > Driver Info (not using libv4l2):
