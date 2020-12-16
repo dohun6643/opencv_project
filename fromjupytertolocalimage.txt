@@ -1,0 +1,8 @@
+#현재경로 모든 파일을 image.tar 로 압축
+tar cvf image.tar *
+
+#압축된 파일을 내 로컬 /home/dohun 로 이동
+scp image.tar dohun@192.168.0.120:/home/dohun
+
+# 압축해제
+tar xvf file.tar
