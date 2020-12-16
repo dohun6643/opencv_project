@@ -2,24 +2,25 @@
 --------------------------------------------------
 - CSI-Camera
 https://github.com/JetsonHacksNano/CSI-Camera
-
+<p> &nbsp; </p>
 
 ## 2. 프로그램 설치하기
 --------------------------------------------------
-- $ sudo apt install ffmpeg
-- $ sudo apt install v4l-utils
-- $ sudo apt install python3-opencv -y
-- $ sudo apt install tightvncserver
-- $ sudo apt install libcanberra-gtk-module libcanberra-gtk3-module
+$ sudo apt install ffmpeg <br>
+$ sudo apt install v4l-utils <br>
+$ sudo apt install python3-opencv -y <br>
+$ sudo apt install tightvncserver <br>
+$ sudo apt install libcanberra-gtk-module libcanberra-gtk3-module <br>
+<p> &nbsp; </p>
 
 
 ## 3. 비디오 장치 정보 출력하기
 --------------------------------------------------
-- $ sudo v4l2-ctl --list-devices
+$ sudo v4l2-ctl --list-devices
 > vi-output, imx219 7-0010 (platform:54080000.vi:0):
 >        /dev/video0
 
-- $ v4l2-ctl --device=/dev/video0 --all
+$ v4l2-ctl --device=/dev/video0 --all
 > Driver Info (not using libv4l2):
 >>        Driver name   : tegra-video
 >>        Card type     : vi-output, imx219 7-0010
@@ -50,6 +51,7 @@ https://github.com/JetsonHacksNano/CSI-Camera
 >>        Transfer Function : Default (maps to sRGB)
 >>        YCbCr/HSV Encoding: Default (maps to ITU-R 601)
 >>        Quantization      : Default (maps to Full Range)
+<p> &nbsp; </p>
 
 ## 4. 카메라 테스트하기
 --------------------------------------------------
@@ -144,3 +146,34 @@ def main():
 if __name__ == "__main__":
     main()
 </pre>
+<p> &nbsp; </p>
+
+## 5. 동영상 녹화하기
+--------------------------------------------------
+- ssh 로 JetBot에 접속해 녹화 파일명, 녹화 시간을 지정하면 해당 시간 동안 동영상 파일을 만든다.
+
+$ python3 RecordVideo.py
+> 녹화 파일명 : file.avi <br>
+> 녹화 시간 (초단위 ): 10 <br>
+
+<img src='README/05_01.jpg'>
+
+- 만약 모니터에 연결한 경우 옵션 1을 주면 모니터 화면에서 녹화 화면을 볼 수 있다.
+
+$ python3 RecordVideo.py 1
+> 녹화 파일명 > file.avi <br>
+> 녹화 시간 (초단위 ) > 10 <br>
+
+<img src='README/05_02.jpg'>
+
+<p> &nbsp; </p>
+
+## 6. 이미지 파일로 저장하기
+--------------------------------------------------
+- ssh 로 JetBot에 접속해 파일명, 시간을 지정하면 해당 시간 동안 이미지 파일을 0.1ms 주기로 만든다.
+
+$ python CameraToImage.py
+
+<img src='README/06_01.jpg'>
+
+<img src='README/06_02.jpg'>
