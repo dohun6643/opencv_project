@@ -176,8 +176,8 @@ $ python3 RecordVideo.py 1
 
 $ python CameraToImage.py
 
-<img src='README/06_01.jpg'>
+<img src='README/06_01.jpg'> <br>
 
-<img src='README/06_02.jpg'>
+<img src='README/06_02.jpg'> <br>
 
-<img src='README/06_03.jpg'>
+<img src='README/06_03.jpg'> <br>
