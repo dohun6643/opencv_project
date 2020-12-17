@@ -13,11 +13,20 @@ GStreamer를 이용해서 카메라 이미지 획득하는 방법 설명함 <br>
 --------------------------------------------------
 $ sudo apt install ffmpeg <br>
 $ sudo apt install v4l-utils <br>
-$ sudo apt install python3-opencv -y <br>
 $ sudo apt install tightvncserver <br>
 $ sudo apt install libcanberra-gtk-module libcanberra-gtk3-module <br>
+
 <p> &nbsp; </p>
 
+> 참고 : <br>
+> JetBot에서는 ffmpeg을 설치하면 OpenCV가 설치되므로 따로 설치하지 않아도 됨 <br>
+> JetBot에서 아래와 같이 OpenCV 설치 시 3.x 버전이 설치되어 카메라가 동작하지 않음 <br>
+> JetBot에서 opencv를 잘못 설치한 경우 sudo apt remove python3-open 와 같이 삭제하면 됨 <br>
+
+> import cv2 <br>
+> cv2.__version__ 값이 4.x 이면 됨 <br>
+
+>> $ sudo apt install python3-opencv -y (JetBot에서는 ffmpeg를 설치하면 됨. opencv 설치 할 필요 없음)<br>
 
 ## 3. 비디오 장치 정보 출력하기
 --------------------------------------------------
