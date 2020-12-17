@@ -57,3 +57,24 @@ In local terminal
 전송받은 경로로 들어가서
 tar xvf image.tar # tar파일 압축 해제
 '''
+
+# --------- camera setting Final apply -----------------------
+from jetbot import Robot
+from jetbot import Camera
+from IPython.display import display
+from jetbot import bgr8_to_jpeg
+import time, numpy as np, cv2 as cv
+import ipywidgets.widgets as widgets
+
+robot = Robot()
+
+image = widgets.Image(format='jpeg', width=300, height=300) # camera를 display할 image widget 사용
+
+camera = Camera.instance(width=300, height=300) 
+
+display(image)
+pre_img = np.zeros((300,300),dtype=np.uint8)
+while True :
+    img = (camera.value) 
+    image.value= bgr8_to_jpeg(img,100)
+    time.sleep(0.1)
