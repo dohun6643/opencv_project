@@ -1,80 +1,38 @@
-from cv2 import cv2 as cv
-import numpy as np
-from os import listdir
-from os.path import isfile, join
+import cv2
+import os
 
-directory_name = 'datas/images/faces/'
-onlyfiles = [f for f in listdir(directory_name) if isfile(join(directory_name,f))]
+path = '/home/dohun/Documents/imageroad'
+save_path = '/home/dohun/Documents/opencv_project/ImageCropped'
 
-Training_Data, Labels = [], []
+if not os.path.isdir(save_path):
+    os.mkdir(save_path)
 
-for i, files in enumerate(onlyfiles):
-    image_path = directory_name + onlyfiles[i]
-    images = cv.imread(image_path, cv.IMREAD_GRAYSCALE)
-    Training_Data.append(np.asarray(images, dtype=np.uint8))
-    Labels.append(i)
+image_files = [f for f in os.listdir(path) if f.endswith('.jpg')]
 
-Labels = np.asarray(Labels, dtype=np.int32)
+for file in image_files:
+    w = 0
 
-model = cv.face.LBPHFaceRecognizer_create()
+    sample_image = cv2.imread(path + str(file))
 
-print("Model Training Start!!!!!")
+    height = sample_image.shape[0]
+    width = sample_image.shape[1]
 
-model.train(np.asarray(Training_Data), np.asarray(Labels))
+    window_width = 500
+    window_height = 500
 
-print("Model Training Complete!!!!!")
+    writer = file.split('.')[0]
 
-face_classifier = cv.CascadeClassifier('datas/haar_cascade_files/haarcascade_frontalface_default.xml')
+    if not os.path.isdir(save_path + '/' + writer + '/'):
+        os.mkdir(save_path + '/' + writer + '/')
 
-def face_detector(img, size = 0.5):
-    gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-    faces = face_classifier.detectMultiScale(gray,1.3,5)
+    for i in range(0, height, window_height):
+        for j in range(0, width, window_width):
+            crop_image = sample_image[i:i+window_height, j:j+window_width]
+            cv2.imwrite(save_path + '/' + writer + '/' + str(w) + '.png', crop_image)
+            w = w + 1
 
-    if faces is():
-        return img,[]
-
-    for(x,y,w,h) in faces:
-        cv.rectangle(img, (x,y),(x+w,y+h),(0,255,255),2)
-        roi = img[y:y+h, x:x+w]
-        roi = cv.resize(roi, (200,200))
-
-    return img,roi
-
-cap = cv.VideoCapture(2)
-while True:
-
-    ret, frame = cap.read()
-
-    image, face = face_detector(frame)
-
-    try:
-        face = cv.cvtColor(face, cv.COLOR_BGR2GRAY)
-        result = model.predict(face)
-
-        if result[1] < 500:
-            confidence = int(100*(1-(result[1])/300))
-            display_string = str(confidence)+'% Confidence , Predict '
-        display_string = display_string + str(result[1])
-        cv.putText(image,display_string,(100,120), cv.FONT_HERSHEY_COMPLEX,1,(250,120,255),2)
-
-
-        if confidence > 75:
-            cv.putText(image, "Unlocked", (250, 450), cv.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2)
-            cv.imshow('Face Cropper', image)
-
-        else:
-            cv.putText(image, "Locked", (250, 450), cv.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255), 2)
-            cv.imshow('Face Cropper', image)
-
-
-    except:
-        cv.putText(image, "Face Not Found", (250, 450), cv.FONT_HERSHEY_COMPLEX, 1, (255, 0, 0), 2)
-        cv.imshow('Face Cropper', image)
-        pass
-
-    if cv.waitKey(1)==ord('q'):
-        break
-
-
-cap.release()
-cv.destroyAllWindows()
+for root, dirs, files in os.walk(save_path):
+    path = root.split(os.sep)
+    print((len(path) - 1) * '---', os.path.basename(root))
+    for file in files:
+        print(len(path) * '---', file)
