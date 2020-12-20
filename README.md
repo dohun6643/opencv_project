@@ -236,3 +236,156 @@ button_push.on_click(button_proc)
 <img src='README/07_01.jpg'> <br>
 
 <p> &nbsp; </p>
+
+## 8. 리모트에서 JetBot으로 이미지 수집하기
+--------------------------------------------------
+
+<pre>
+# 모듈 불러오기
+from jetbot import Camera
+from jetbot import bgr8_to_jpeg
+import ipywidgets.widgets as widgets
+from jetbot import Robot
+
+import uuid
+import time
+import cv2 as cv
+import os
+import glob
+
+# Robot 객체 생성하기
+robot = Robot()
+
+# Camera 객체 생성하기
+camera = Camera.instance()
+
+# 위젯 등록하기
+camera_image = widgets.Image(format='jpeg', width=200, height=200)
+
+# 버튼 레이아웃 설정하고 버튼 생성하기
+layoutButton = widgets.Layout(width='100px', height='80px', align_self='center')
+
+button_up = widgets.Button(description='Up', layout=layoutButton)
+button_left = widgets.Button(description='left', layout=layoutButton)
+button_stop = widgets.Button(description='stop', layout=layoutButton)
+button_right = widgets.Button(description='right', layout=layoutButton)
+button_down = widgets.Button(description='down', layout=layoutButton)
+button_snapshot = widgets.Button(description='snapshot', layout=layoutButton)
+
+# 카메라 이미지 저장하기
+def take_snapshot(img_data):
+    # 현재 디렉터리에서 jpg 파일의 개수 얻기
+    strdir = os.getcwd()
+    count = len(glob.glob(strdir + "/*.jpg"))
+    
+    # img_data를 JPEG 파일 형식으로 변환함
+    camera_image.value = bgr8_to_jpeg(img_data)
+
+    # JPEG 파일 저장하기
+    if snapshot_on:
+        # 파일 이름 설정하기
+        strfile = strdir + "/%06d.jpg" %count
+        with open(strfile, "wb") as f:
+            f.write(img_data)
+
+# 버튼 프로시저
+def procButtonSnapshot(change):
+    # 카메라 이미지 저장하기
+    take_snapshot(camera.value)
+        
+def procButtonUp(change):
+    global loop_count
+    global sleep_value
+    global sleep_left_value
+    global sleep_right_value
+    global snapshot_on
+    
+    # 모터 속도
+    robot.set_motors(0.1, 0.1)
+ 
+    local_count = loop_count
+    while local_count > 0:
+        time.sleep(sleep_up_down_value)
+        take_snapshot(camera.value)
+        local_count = local_count - 1
+        
+    robot.stop()
+    
+def procButtonDown(change):
+    global loop_count
+    global sleep_value
+    global sleep_left_value
+    global sleep_right_value
+    global snapshot_on
+    
+    robot.set_motors(-0.1, -0.1)
+ 
+    local_count = loop_count
+    while local_count > 0:
+        time.sleep(sleep_up_down_value)
+        take_snapshot(camera.value)
+        local_count = local_count - 1
+        
+    robot.stop()
+    
+def procButtonLeft(change):
+    global loop_count
+    global sleep_value
+    global sleep_left_value
+    global sleep_right_value
+    global snapshot_on
+    
+    robot.set_motors(-0.1, 0.1)
+ 
+    local_count = loop_count
+    while local_count > 0:
+        time.sleep(sleep_left_right_value)
+        take_snapshot(camera.value)
+        local_count = local_count - 1
+        
+    robot.stop()
+    
+def procButtonRight(change):
+    global loop_count
+    global sleep_value
+    global sleep_left_value
+    global sleep_right_value
+    global snapshot_on
+    
+    robot.set_motors(0.1, -0.1)
+ 
+    local_count = loop_count
+    while local_count > 0:
+        time.sleep(sleep_left_right_value)
+        take_snapshot(camera.value)
+        local_count = local_count - 1
+        
+    robot.stop()
+    
+def procButtonStop(change):
+    robot.stop()
+
+# 버튼 이벤트 핸들러 설정하기
+button_up.on_click(procButtonUp)
+button_down.on_click(procButtonDown)
+button_left.on_click(procButtonLeft)
+button_right.on_click(procButtonRight)
+button_stop.on_click(procButtonStop)
+button_snapshot.on_click(procButtonSnapshot)
+
+# 매개변수 조정하기
+loop_count = 5
+sleep_up_down_value = 0.1
+sleep_left_right_value = 0.01
+snapshot_on = False
+
+# 이미지 박스 만들고 이미지 출력하기
+boxMiddle = widgets.HBox([button_left, button_stop, button_right], layout=widgets.Layout(align_self='center'))
+box = widgets.VBox([camera_image, button_up, boxMiddle, button_down, button_snapshot], layout=widgets.Layout(align_self='center'))
+display(box)
+
+<img src='README/08.jpg'> <br>
+
+<p> &nbsp; </p>
+
+</pre>
