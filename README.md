@@ -23,8 +23,11 @@ $ sudo apt install libcanberra-gtk-module libcanberra-gtk3-module <br>
 > JetBot에서 아래와 같이 OpenCV 설치 시 3.x 버전이 설치되어 카메라가 동작하지 않음 <br>
 > JetBot에서 opencv를 잘못 설치한 경우 sudo apt remove python3-open 와 같이 삭제하면 됨 <br>
 
-> import cv2 <br>
-> cv2.__version__ 값이 4.x 이면 됨 <br>
+<pre>
+# OpenCV 버전 4.x 확인하기
+>>> import cv2
+>>> cv2.__version__
+</pre>
 
 >> $ sudo apt install python3-opencv -y (JetBot에서는 ffmpeg를 설치하면 됨. opencv 설치 할 필요 없음)<br>
 
