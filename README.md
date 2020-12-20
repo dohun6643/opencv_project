@@ -252,9 +252,10 @@ from jetbot import bgr8_to_jpeg
 import ipywidgets.widgets as widgets
 from jetbot import Robot
 
+import cv2 as cv
+import numpy as np
 import uuid
 import time
-import cv2 as cv
 import os
 import glob
 
@@ -265,7 +266,8 @@ robot = Robot()
 camera = Camera.instance()
 
 # 위젯 등록하기
-camera_image = widgets.Image(format='jpeg', width=200, height=200)
+camera_image = widgets.Image(format='jpeg', width=200, height=200, layout=widgets.Layout(align_self='center'))
+camera_image.value = bgr8_to_jpeg(np.zeros((200, 200, 3)))
 
 # 버튼 레이아웃 설정하고 버튼 생성하기
 layoutButton = widgets.Layout(width='100px', height='80px', align_self='center')
@@ -291,7 +293,7 @@ def take_snapshot(img_data):
         # 파일 이름 설정하기
         strfile = strdir + "/%06d.jpg" %count
         with open(strfile, "wb") as f:
-            f.write(img_data)
+            f.write(camera_image.value)
 
 # 버튼 프로시저
 def procButtonSnapshot(change):
@@ -377,16 +379,15 @@ button_left.on_click(procButtonLeft)
 button_right.on_click(procButtonRight)
 button_stop.on_click(procButtonStop)
 button_snapshot.on_click(procButtonSnapshot)
-
 # --------------------------------------------------------------
 # 매개변수를 변경하고 새로 적용할 경우 위에 부분은 재실행할 필요가 없으므로
 # Jupyter에서 아래 부분은 새로운 Cell로 나누어 실행하는 것이 좋음
 
-# 매개변수 조절하기
+# 매개변수 조정하기
 loop_count = 5
 sleep_up_down_value = 0.1
 sleep_left_right_value = 0.01
-snapshot_on = False
+snapshot_on = True
 
 # 이미지 박스 만들고 이미지 출력하기
 boxMiddle = widgets.HBox([button_left, button_stop, button_right], layout=widgets.Layout(align_self='center'))
