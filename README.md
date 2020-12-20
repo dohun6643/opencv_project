@@ -379,7 +379,8 @@ button_stop.on_click(procButtonStop)
 button_snapshot.on_click(procButtonSnapshot)
 
 # --------------------------------------------------------------
-# 매개변수를 변경하고 새로 적용할 경우 위에 부분은 재실행할 필요가 없으므로  Jupyter에서 아래 부분은 새로운 Cell로 나누어 실행하는 것이 좋음
+# 매개변수를 변경하고 새로 적용할 경우 위에 부분은 재실행할 필요가 없으므로
+# Jupyter에서 아래 부분은 새로운 Cell로 나누어 실행하는 것이 좋음
 
 # 매개변수 조절하기
 loop_count = 5
