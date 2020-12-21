@@ -1,6 +1,6 @@
 ## 1. 참고 자료
 --------------------------------------------------
-- blackcode <br>
+- blackcoke <br>
 https://github.com/blackcoke/Proj_road_detection- <br>
 
 - CSI-Camera <br>
